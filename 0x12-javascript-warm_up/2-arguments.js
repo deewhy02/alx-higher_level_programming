@@ -6,5 +6,5 @@ if (count <= 2) {
 } else if (count === 3) {
   console.log('Argument found');
 } else {
-  console.log('Argumens found');
+  console.log('Arguments found');
 }
