@@ -1,4 +1,4 @@
-#!/usr/bin/node
+!/usr/bin/node
 
 const filename = process.argv[2];
 const text = process.argv[3];
