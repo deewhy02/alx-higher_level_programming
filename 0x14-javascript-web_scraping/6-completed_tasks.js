@@ -1,25 +1,21 @@
 #!/usr/bin/node
-
-const url = process.argv[2];
 const request = require('request');
 
-request(url, function (err, response, body) {
-  if (err) {
-    console.log(err);
-  } else if (response.statusCode === 200) {
-    const dic = {};
-    const tasks = JSON.parse(body);
-    for (const i in tasks) {
-      if (tasks[i].completed) {
-        if (dic[tasks[i].userId] === undefined) {
-          dic[tasks[i].userId] = 1;
-        } else {
-          dic[tasks[i].userId]++;
-        }
-      }
+if (process.argv.length > 2) {
+  request(process.argv[2], (err, res, body) => {
+    const aggregate = {};
+
+    if (err) {
+      console.log(err);
     }
-    console.log(dic);
-  } else {
-    console.log('Error code: ' + response.statusCode);
-  }
-});
+    JSON.parse(body).forEach(element => {
+      if (element.completed) {
+        if (!aggregate[element.userId]) {
+          aggregate[element.userId] = 0;
+        }
+        aggregate[element.userId]++;
+      }
+    });
+    console.log(aggregate);
+  });
+}
